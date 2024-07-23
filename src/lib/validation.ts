@@ -29,3 +29,16 @@ export const ForgotPasswordFormSchema3 = z.object({
     message: "Password must be at least 8 characters long",
   }),
 })
+
+// Creating validation for withdrawal request
+export const SendWithDrawRequestSchema = z.object({
+  phoneNumber: z.string().min(3, {
+    message: "Phone number must be at least 6 characters long"
+  }),
+  amount: z.string().min(6, {
+    message: "Amount must be at least 6 characters long"
+  }),
+  paymentType: z.string().min(6, { //Payment type might be an enum type instead of string
+    message: "Please choose the payment type",
+  })
+})
