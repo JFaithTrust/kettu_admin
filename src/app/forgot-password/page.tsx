@@ -1,17 +1,16 @@
-"use client"
+'use client'
 
-import Image from "next/image";
-import LoginForm from "@/components/forms/login-form";
 import {useState} from "react";
+import Image from "next/image";
 import {IoIosArrowDown} from "react-icons/io";
-
+import ForgotPasswordForm from "@/components/forms/forgot-password-form";
 const languages = [
   { code: 'en', name: 'Eng', flag: '/eng.svg' },
   { code: 'uz', name: 'Uz', flag: '/uz.svg' },
   { code: 'ru', name: 'Ру', flag: '/ru.svg' }
 ];
 
-export default function Home() {
+const ForgotPasswordPage = () => {
   const [selectedLang, setSelectedLang] = useState(languages[0]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,10 +28,10 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center relative">
         <div className={"absolute right-4 top-4 px-3 py-2"}>
           <div style={{position: 'relative', display: 'inline-block'}}>
-            <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"} >
+            <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"}>
               <Image src={selectedLang.flag} alt={selectedLang.name} width={20} height={20}/>
               <span className={"font-medium ml-1 mr-1.5"}>{selectedLang.name}</span>
-              <IoIosArrowDown />
+              <IoIosArrowDown/>
             </div>
             {isOpen && (
               <div className={"absolute bg-white rounded-lg py-2 gap-y-1"} style={{
@@ -52,9 +51,11 @@ export default function Home() {
             )}
           </div>
         </div>
-        <LoginForm/>
+        <ForgotPasswordForm />
       </div>
       <img src={'/login-page-image.jpg'} className={"h-screen w-full"} alt={"Login Image"}/>
     </main>
-  );
+  )
 }
+
+export default ForgotPasswordPage
