@@ -14,9 +14,12 @@ export default function Layout({children}: { children: React.ReactNode }) {
       )}
     >
       <Sidebar />
-      <div className="flex-grow p-4 md:overflow-y-auto">
+      <div className="flex-grow md:overflow-y-auto">
         <Navbar />
-        {children}</div>
+        <div className={"py-4 pl-4 pr-6"}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

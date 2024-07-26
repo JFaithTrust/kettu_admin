@@ -1,14 +1,4 @@
-'use client'
-
-import {Input} from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import {Button} from "@/components/ui/button";
-import {ChevronDownIcon} from "lucide-react";
+import React from "react";
 import {
   ColumnFiltersState, flexRender,
   getCoreRowModel, getFilteredRowModel,
@@ -17,28 +7,30 @@ import {
   useReactTable,
   VisibilityState
 } from "@tanstack/react-table";
-import React from "react";
-import {companyColumn} from "@/app/dashboard/companies/company-column";
-import Link from "next/link";
+import {reportData} from "@/constants";
+import {reportEarningColumn} from "@/app/dashboard/report/report-earning-column";
+import {Input} from "@/components/ui/input";
+import {LuListFilter, LuSearch} from "react-icons/lu";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {Button} from "@/components/ui/button";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import {ColumnDef} from "@tanstack/table-core";
-import {FaEye} from "react-icons/fa";
-import {LuListFilter, LuPlus, LuSearch} from "react-icons/lu";
-import {CompanyData, tourPackData} from "@/constants";
-import {tourPackColumn} from "@/app/dashboard/tour-packs/tour-pack-column";
 
-const TourPackPage = () => {
+const ReportEarningDataTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: tourPackData,
-    columns: tourPackColumn,
+    data: reportData,
+    columns: reportEarningColumn,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -46,18 +38,16 @@ const TourPackPage = () => {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
     },
   })
 
   return (
     <div className={"w-full flex flex-col gap-y-4"}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-end gap-x-2">
         <div className={"relative"}>
           <Input
             placeholder="Search..."
@@ -94,14 +84,6 @@ const TourPackPage = () => {
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Link href={"/dashboard/companies/create"}>
-            <Button
-              className="py-3 px-4 flex gap-x-2 bg-primary rounded-lg text-white hover:bg-primary/80"
-            >
-              <LuPlus className={"h-6 w-6"} />
-              Add new
-            </Button>
-          </Link>
         </div>
       </div>
       <div className="rounded-md border">
@@ -144,7 +126,7 @@ const TourPackPage = () => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={tourPackColumn.length}
+                  colSpan={reportEarningColumn.length}
                   className="h-24 text-center"
                 >
                   No results.
@@ -180,6 +162,6 @@ const TourPackPage = () => {
       </div>
     </div>
   );
-};
+}
 
-export default TourPackPage
+export default ReportEarningDataTable;
