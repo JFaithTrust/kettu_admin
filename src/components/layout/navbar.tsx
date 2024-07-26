@@ -8,6 +8,15 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import { useTheme} from "next-themes";
 import {LuBellRing} from "react-icons/lu";
 import {PiSun} from "react-icons/pi";
+import {
+  DropdownMenu,
+  DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import {LogOut} from "lucide-react";
+import {usePathname, useRouter} from "next/navigation";
 
 const Navbar = () => {
   const { setTheme, theme } = useTheme();
@@ -20,6 +29,9 @@ const Navbar = () => {
   const [selectedLang, setSelectedLang] = useState(languages[0]);
   const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -27,11 +39,18 @@ const Navbar = () => {
   const selectLanguage = (lang: any) => {
     setSelectedLang(lang);
     setIsOpen(false);
+    router.push('/' + lang.code + pathname.slice(3));
   };
 
   return (
-    <div className={"flex w-full justify-between py-5 px-6"}>
-      <h1 className={"text-2xl font-bold"}>Companies</h1>
+    <div className={"flex w-full justify-between py-5 px-6 border-b-[1px] border-b-secondary dark:border-dark-secondary"}>
+      <h1 className={"text-2xl font-bold capitalize"}>
+        {/*{pathname.slice(11)}*/}
+        {/*input: tour-pack
+        output: Tour Pack
+        */}
+        {pathname.slice(14).split("-").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+      </h1>
       <div className={"flex gap-x-3 items-center"}>
         <div style={{position: 'relative', display: 'inline-block'}}>
           <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"}>
@@ -66,10 +85,31 @@ const Navbar = () => {
           <RiCopperCoinFill className={"w-4 h-4 text-amber-500"} />
           <span className={"text-sm font-medium text-gray-600"}>70,000</span>
         </div>
-        <Avatar className={"w-10 h-10"}>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar className={"w-10 h-10 cursor-pointer"}>
+              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-fit">
+            <DropdownMenuLabel className={"p-3 flex gap-x-2"}>
+              <Avatar className={"w-10 h-10 cursor-pointer"}>
+                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div className={"flex flex-col text-sm leading-5"}>
+                <span className={"font-semibold"}>Rodrigo Goes</span>
+                <span className={"font-normal"}>+998 99 332 3929</span>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className={"flex gap-x-2 text-sm text-red-600 focus:text-red-600"}>
+              <LogOut />
+              <span className={"font-medium"}>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   )

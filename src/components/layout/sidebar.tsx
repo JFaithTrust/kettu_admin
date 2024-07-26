@@ -18,11 +18,11 @@ const Sidebar = () => {
       animate={{
         width: open ? "288px" : "80px",
       }}
-      className={clsx("flex flex-col justify-between border-r-[1px] border-solid border-gray-200 pb-4", {
+      className={clsx("flex flex-col justify-between border-r-[1px] border-solid border-secondary dark:border-dark-secondary pb-4", {
         "px-3": open,
       })}>
       <div className={"flex flex-col space-y-4"}>
-        <div className={"p-4 border-b-[1px] border-solid border-gray-200 dark:border-gray-800"}>
+        <div className={"p-4 border-b-[1px] border-solid border-secondary dark:border-dark-secondary"}>
           <motion.h1 className={"text-[28px] font-bold p-1 transition duration-150"}>
             {open ? "Kettu" : "K"}
             <span className={"text-primary"}>
@@ -32,8 +32,8 @@ const Sidebar = () => {
         <div className={"flex flex-col space-y-1"}>
           {sidebarLinks.map((link) => (
             <Link href={link.href} key={link.label}
-                  className={clsx("flex justify-between py-2 px-3 rounded-md hover:bg-slate-200 cursor-pointer", {
-                    "bg-slate-200 border-solid border-r-[6px] border-primary": pathname === link.href,
+                  className={clsx("flex justify-between py-2 px-3 rounded-md hover:bg-[#F6F8FA] dark:hover:bg-[#292D32] cursor-pointer", {
+                    "bg-[#F6F8FA] border-solid border-r-[6px] border-primary dark:bg-[#292D32]": pathname === link.href,
                     "mx-3": !open,
                   })}>
               <div className={"flex gap-x-3 items-center"}>

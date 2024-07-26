@@ -21,6 +21,8 @@ const config = {
       colors: {
         "main": "#F0F0F0",
         "primary": "#114D72",
+        "secondary": "#EAEEF2",
+        "dark-secondary": "#333741",
       },
       keyframes: {
         "caret-blink": {

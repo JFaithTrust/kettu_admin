@@ -5,23 +5,25 @@ import {useForm} from "react-hook-form";
 import {LoginFormSchema} from "@/lib/validation";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import axios from "@/store/axios";
 import {toast} from "sonner";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import useUserProfileStore from "@/store/user-profile-store";
 import {Input} from "@/components/ui/input";
 import {PhoneInput} from "@/components/ui/phone-input";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
-import {Eye} from "lucide-react";
 import {FaEye} from "react-icons/fa";
+import Link from "next/link";
+import {useLocale} from "next-intl";
+import useAuthStore from "@/store/auth.store";
+import $axios from "@/http/axios";
 
 export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
-  const { setUser } = useUserProfileStore()
+  const { setAuth } = useAuthStore()
   const router = useRouter()
+  const locale = useLocale()
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -33,19 +35,18 @@ export default function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
     try {
-      const { data } = await axios.post('/Auth/login',values)
+      const { data } = await $axios.post('/Auth/login',values)
       if(data) {
-        setUser({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          gender: data.gender,
-          birthDate: data.birthDate,
+        setAuth({
           token: data.token,
-          email: data.email,
-          phoneNumber: values.phoneNumber
+          refreshTokenId: data.refreshTokenId,
+          user: {
+            id: data.user.id,
+            email: data.user.email,
+          }
         })
-        toast.success("Logged in successfully.")
-        router.push('/dashboard')
+        toast.success(data.message)
+        router.push(`/${locale}/dashboard/companies`)
       }else{
         toast.error("An error occurred. Please try again.")
       }
@@ -108,7 +109,7 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-            <p className={"text-primary font-medium"}>Forgot password?</p>
+            <Link href={`/${locale}/forgot-password`} className={"text-primary font-medium hover:underline cursor-pointer"}>Forgot password?</Link>
             <Button type={"submit"} variant={"login"}>
               Login
             </Button>

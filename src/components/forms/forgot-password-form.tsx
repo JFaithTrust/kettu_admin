@@ -8,12 +8,14 @@ import {PhoneInput} from "@/components/ui/phone-input";
 import {Input} from "@/components/ui/input";
 import {FaEye} from "react-icons/fa";
 import {Button} from "@/components/ui/button";
-import axios from "@/store/axios";
+import axios from "@/http/axios";
 import {toast} from "sonner";
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
+import Link from "next/link";
+import {useLocale} from "next-intl";
 
 const ForgotPasswordForm = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [saved, setSaved] = useState({phoneNumber: ""});
 
   return (
@@ -33,6 +35,7 @@ function ForgotStep1({ setSaved, setStep,}: {
   setSaved: Dispatch<SetStateAction<{ phoneNumber: string }>>;
   setStep: Dispatch<SetStateAction<number>>;
 }) {
+  const locale = useLocale()
 
   const form = useForm<z.infer<typeof ForgotPasswordFormSchema1>>({
     resolver: zodResolver(ForgotPasswordFormSchema1),
@@ -77,7 +80,7 @@ function ForgotStep1({ setSaved, setStep,}: {
             <Button type={"submit"} variant={"login"}>
               Continue
             </Button>
-            <p className={"text-center text-gray-600 font-medium text-sm cursor-pointer hover:underline"}>Back to login</p>
+            <Link href={`/${locale}`} className={"text-center text-gray-600 font-medium text-sm cursor-pointer hover:underline"}>Back to login</Link>
           </div>
         </form>
       </Form>
@@ -89,6 +92,7 @@ function ForgotStep2 ({ saved, setStep }: {
   saved: { phoneNumber: string };
   setStep: Dispatch<SetStateAction<number>>;
 }){
+  const locale = useLocale()
   const form = useForm<z.infer<typeof ForgotPasswordFormSchema2>>({
     resolver: zodResolver(ForgotPasswordFormSchema2),
     defaultValues: {
@@ -152,8 +156,8 @@ function ForgotStep2 ({ saved, setStep }: {
             <Button type={"submit"} variant={"login"}>
               Continue
             </Button>
-            <p className={"text-center text-gray-600 font-medium text-sm cursor-pointer hover:underline"}>Back to
-              login</p>
+            <Link href={`/${locale}`} className={"text-center text-gray-600 font-medium text-sm cursor-pointer hover:underline"}>Back to
+              login</Link>
           </div>
         </form>
       </Form>

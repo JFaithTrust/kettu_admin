@@ -1,0 +1,54 @@
+@tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+
+body {
+  background-color: #FFFFFF
+}
+
+@layer base {
+  :root {
+    --chart-1: #388E3C;
+    --chart-2: #D32F2F;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.autocomplete-list {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.autocomplete-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-option:hover {
+  background-color: #ddd;
+}
