@@ -171,6 +171,13 @@ export const CompanyData: CompanyType[] = [
     tourCount: 412,
     employeeCount: 213,
   },
+  {
+    id: "52ma53ae",
+    imageURL: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dHdpdHRlciUyMGhlYWRlcnxlbnwwfHwwfHx8MA%3D%3D",
+    name: "Twitter 2",
+    tourCount: 200,
+    employeeCount: 210,
+  },
 ]
 
 export const reportData: ReportType[] = [

@@ -4,6 +4,7 @@ import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReact
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 // D - Table Data, V - Table Value
 interface TableProps<D, V> {
@@ -19,13 +20,21 @@ export function DataTable<D, V>({
                                   pageCount,
                                   pageSize
                                 }: TableProps<D, V>) {
+
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  })
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    pageCount: pageCount,
-    rowCount: pageSize,
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    state: {
+      pagination
+    }
   })
 
   return (
