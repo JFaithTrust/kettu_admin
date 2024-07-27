@@ -9,16 +9,12 @@ import { useState } from "react";
 // D - Table Data, V - Table Value
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
-  data: D[],
-  pageCount: number,
-  pageSize: number
+  data: D[]
 }
 
 export function DataTable<D, V>({
                                   columns,
-                                  data,
-                                  pageCount,
-                                  pageSize
+                                  data
                                 }: TableProps<D, V>) {
 
   const [pagination, setPagination] = useState({

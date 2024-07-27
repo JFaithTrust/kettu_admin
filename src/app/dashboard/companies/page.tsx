@@ -104,7 +104,7 @@ const CompaniesPage = () => {
           </Link>
         </div>
       </div>
-      <DataTable columns={companyColumn} data={CompanyData} pageCount={5} pageSize={3} />
+      <DataTable columns={companyColumn} data={CompanyData} />
     </div>
   );
 };
