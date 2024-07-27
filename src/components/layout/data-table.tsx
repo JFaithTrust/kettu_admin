@@ -4,12 +4,17 @@ import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReact
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Pagination } from "@/components/layout/pagination";
 
 // D - Table Data, V - Table Value
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
   data: D[]
+}
+export interface PaginationType {
+  pageIndex: number
+  pageSize: number
 }
 
 export function DataTable<D, V>({
@@ -17,10 +22,14 @@ export function DataTable<D, V>({
                                   data
                                 }: TableProps<D, V>) {
 
-  const [pagination, setPagination] = useState({
+  const [pagination, setPagination] = useState<PaginationType>({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 5
   })
+
+  useEffect(() => {
+    console.log(pagination)
+  }, [pagination]);
 
   const table = useReactTable({
     data,
@@ -79,24 +88,11 @@ export function DataTable<D, V>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination
+        pagination={pagination}
+        setPagination={setPagination}
+        rowCount={data.length}
+        maxVisiblePages={4}/>
     </div>
   )
 }
