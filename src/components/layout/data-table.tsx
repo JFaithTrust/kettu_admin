@@ -5,7 +5,7 @@ import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReact
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { Pagination } from "@/components/layout/pagination";
+import { CustomPagination } from "@/components/layout/custom-pagination";
 
 // D - Table Data, V - Table Value
 interface TableProps<D, V> {
@@ -88,11 +88,10 @@ export function DataTable<D, V>({
           </TableBody>
         </Table>
       </div>
-      <Pagination
+      <CustomPagination
         pagination={pagination}
         setPagination={setPagination}
-        rowCount={data.length}
-        maxVisiblePages={4}/>
+        rowCount={data.length}/>
     </div>
   )
 }
