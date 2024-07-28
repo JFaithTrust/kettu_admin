@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { PaginationType } from "@/components/layout/data-table";
 import {
@@ -6,7 +5,9 @@ import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink, PaginationNext, PaginationPrevious
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
 } from "@/components/ui/pagination";
 
 
@@ -33,11 +34,13 @@ export function CustomPagination(props: PaginationProps) {
 
 
   function nextPage() {
-    return props.setPagination({ pageIndex: props.pagination.pageIndex + 1, pageSize: props.pagination.pageSize });
+    if (!isLastPage())
+      props.setPagination({ pageIndex: props.pagination.pageIndex + 1, pageSize: props.pagination.pageSize });
   }
 
   function prevPage() {
-    return props.setPagination({ pageIndex: props.pagination.pageIndex - 1, pageSize: props.pagination.pageSize });
+    if (!isFirstPage())
+      props.setPagination({ pageIndex: props.pagination.pageIndex - 1, pageSize: props.pagination.pageSize });
   }
 
   function isLastPage() {
@@ -49,7 +52,7 @@ export function CustomPagination(props: PaginationProps) {
   }
 
   function setCurrentPage(page: number) {
-    props.setPagination({pageIndex: page-1, pageSize: props.pagination.pageSize});
+    props.setPagination({ pageIndex: page - 1, pageSize: props.pagination.pageSize });
   }
 
   // Function to render page numbers with ellipsis
@@ -62,7 +65,7 @@ export function CustomPagination(props: PaginationProps) {
         <PaginationLink
           onClick={() => setCurrentPage(page)}
           className="cursor-pointer"
-          isActive={props.pagination.pageIndex === page-1}
+          isActive={props.pagination.pageIndex === page - 1}
         >
           {page}
         </PaginationLink>
@@ -101,7 +104,7 @@ export function CustomPagination(props: PaginationProps) {
           <PaginationItem>
             <PaginationPrevious
               onClick={prevPage}
-              isActive={false}
+              disabled={isFirstPage()}
             />
           </PaginationItem>
 
@@ -110,7 +113,7 @@ export function CustomPagination(props: PaginationProps) {
           <PaginationItem>
             <PaginationNext
               onClick={nextPage}
-              isActive={false}
+              disabled={isLastPage()}
             />
           </PaginationItem>
         </PaginationContent>
