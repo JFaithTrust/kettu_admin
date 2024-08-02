@@ -1,13 +1,18 @@
 'use client'
 
 import React from "react";
-import {companyColumn} from "@/app/[locale]/dashboard/companies/company-column";
-import {CompanyData} from "@/constants";
-import {DataTable} from "@/components/layout/data-table";
+import { companyColumn } from "@/app/[locale]/dashboard/companies/company-column";
+import { CompanyData } from "@/constants";
+import { DataTable } from "@/components/layout/data-table";
 
 const CompaniesPage = () => {
   return (
-    <DataTable columns={companyColumn} data={CompanyData} />
+    <div>
+      <DataTable columns={companyColumn}
+                 data={CompanyData}
+                 hasFilter={true} hasPagination={true} hasSearchbar={true} hasAddButton={true}
+                 addButtonLink={"/dashboard/companies/create"} />
+    </div>
   );
 };
 
