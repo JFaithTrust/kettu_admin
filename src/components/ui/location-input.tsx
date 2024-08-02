@@ -9,7 +9,7 @@ import '@vis.gl/react-google-maps/examples.css';
 
 const LocationInput = () => {
   const {isLoaded} = useLoadScript({
-    googleMapsApiKey: 'AIzaSyAleP-bnndcz6hu1pE_KsJAjeUqw4IBU_U',
+    googleMapsApiKey: process.env.GOOGLE_API_KEY!,
     libraries: ["places"],
   });
 
