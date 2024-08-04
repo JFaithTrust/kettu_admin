@@ -28,7 +28,7 @@ function GMap() {
 
   return (
     <>
-      <APIProvider apiKey={'process.env.GOOGLE_API_KEY!}>
+      <APIProvider apiKey={process.env.GOOGLE_API_KEY!}>
         {/*<Map*/}
         {/*  style={{width: '100vw', height: '100vh'}}*/}
         {/*  // defaultCenter={center}*/}
