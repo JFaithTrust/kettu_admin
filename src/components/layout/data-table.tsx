@@ -26,22 +26,24 @@ import { LuSearch } from "react-icons/lu";
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
-  data: D[],
-  hasFilter: boolean,
-  hasSearchbar: boolean,
-  hasAddButton: boolean,
-  addButtonLink: string,
-  hasPagination: boolean
+  data: D[]
+  hasFilter?: boolean
+  hasSearchbar?: boolean
+  hasPagination?: boolean
+  hasAddButton?: boolean
+  addButtonLink?: string
+  searchedBy?: string
 }
 
 export function DataTable<D, V>({
                                   columns,
                                   data,
-                                  hasFilter,
-                                  hasSearchbar,
-                                  hasPagination,
-                                  hasAddButton,
-                                  addButtonLink
+                                  hasFilter = false,
+                                  hasSearchbar = false,
+                                  hasPagination = false,
+                                  hasAddButton = false,
+                                  addButtonLink = "",
+                                  searchedBy = "",
                                 }: TableProps<D, V>) {
   const [pagination, setPagination] = useState<PaginationType>({
     pageIndex: 0,
@@ -55,11 +57,6 @@ export function DataTable<D, V>({
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  useEffect(() => {
-    console.log(table.getColumn("company")?.getFilterValue())
-    console.log(table.getFilteredRowModel())
-    // console.log("Work")
-  }, [columnFilters]);
 
   const table = useReactTable({
     data,
@@ -86,30 +83,18 @@ export function DataTable<D, V>({
   return (
     <div className={"w-full flex flex-col gap-y-4"}>
       <div className="flex items-center justify-between">
-        {/*{hasSearchbar && (*/}
-        {/*  <Searchbar<D, V> table={table} />*/}
-        {/*)}*/}
+        {hasSearchbar && (
+          <Searchbar<D> table={table} searchedBy={searchedBy} />
+        )}
 
-        {/*Mana bu joyda Search componenetini emas Shadcn da yozilgan kodni olib kelib tashladim bari bir ishlamayapti*/}
-        <div className={"relative"}>
-          <Input
-            placeholder="Filter companies..."
-            value={(table.getColumn("company")?.getFilterValue() as string) ?? ""}
-            onChange={(event) => table.getColumn("company")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm peer block rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-          />
-          <LuSearch
-            className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+        <div className={"flex gap-x-2 items-center"}>
+          {hasFilter && (
+            <Filter table={table} />
+          )}
+          {hasAddButton && (
+            <AddButton link={addButtonLink} />
+          )}
         </div>
-
-
-        {hasFilter && (
-          <Filter table={table} />
-        )}
-        {hasAddButton && (
-          <AddButton link={addButtonLink} />
-        )}
       </div>
       <div className="rounded-md border">
         <Table>

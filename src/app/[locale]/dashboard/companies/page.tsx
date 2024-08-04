@@ -11,7 +11,9 @@ const CompaniesPage = () => {
       <DataTable columns={companyColumn}
                  data={CompanyData}
                  hasFilter={true} hasPagination={true} hasSearchbar={true} hasAddButton={true}
-                 addButtonLink={"/dashboard/companies/create"} />
+                 addButtonLink={"/dashboard/companies/create"}
+                  searchedBy={"name"}
+      />
     </div>
   );
 };

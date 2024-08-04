@@ -10,7 +10,7 @@ import {useLocale} from "next-intl";
 
 export const companyColumn: ColumnDef<CompanyType>[] = [
   {
-    accessorKey: "company",
+    accessorKey: "name",
     header: () => <div>Company</div>,
     cell: ({ row }) =>{
       // // eslint-disable-next-line react-hooks/rules-of-hooks
