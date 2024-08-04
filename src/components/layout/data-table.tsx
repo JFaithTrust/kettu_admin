@@ -1,36 +1,48 @@
 "use client"
 
 import {
-  ColumnDef, ColumnFiltersState,
+  ColumnDef,
+  ColumnFiltersState,
   flexRender,
-  getCoreRowModel, getFilteredRowModel,
-  getPaginationRowModel, getSortedRowModel,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   SortingState,
-  useReactTable, VisibilityState,
+  useReactTable,
+  VisibilityState,
 } from "@tanstack/react-table"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {Button} from "@/components/ui/button";
-import React, {useEffect, useState} from "react";
-import {PaginationType} from "@/types";
-import {Input} from "@/components/ui/input";
-import {LuListFilter, LuPlus, LuSearch} from "react-icons/lu";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import Link from "next/link";
-import {companyColumn} from "@/app/[locale]/dashboard/companies/company-column";
-import {CustomPagination} from "@/components/ui/custom-pagination";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import React, { useEffect, useState } from "react";
+import { PaginationType } from "@/types";
+import { companyColumn } from "@/app/[locale]/dashboard/companies/company-column";
+import { CustomPagination } from "@/components/ui/custom-pagination";
+import { Searchbar } from "@/components/layout/searchbar";
+import { Filter } from "@/components/layout/filter";
+import { AddButton } from "@/components/layout/add-button";
+import { Input } from "@/components/ui/input";
+import { LuSearch } from "react-icons/lu";
 
 
 interface TableProps<D, V> {
   columns: ColumnDef<D, V>[]
-  data: D[]
+  data: D[],
+  hasFilter: boolean,
+  hasSearchbar: boolean,
+  hasAddButton: boolean,
+  addButtonLink: string,
+  hasPagination: boolean
 }
 
-export function DataTable<D, V>({columns, data}: TableProps<D, V>) {
+export function DataTable<D, V>({
+                                  columns,
+                                  data,
+                                  hasFilter,
+                                  hasSearchbar,
+                                  hasPagination,
+                                  hasAddButton,
+                                  addButtonLink
+                                }: TableProps<D, V>) {
   const [pagination, setPagination] = useState<PaginationType>({
     pageIndex: 0,
     pageSize: 5,
@@ -44,8 +56,10 @@ export function DataTable<D, V>({columns, data}: TableProps<D, V>) {
   const [rowSelection, setRowSelection] = React.useState({})
 
   useEffect(() => {
-    console.log(pagination)
-  }, [pagination]);
+    console.log(table.getColumn("company")?.getFilterValue())
+    console.log(table.getFilteredRowModel())
+    // console.log("Work")
+  }, [columnFilters]);
 
   const table = useReactTable({
     data,
@@ -59,6 +73,7 @@ export function DataTable<D, V>({columns, data}: TableProps<D, V>) {
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
+    manualFiltering: false,
     state: {
       pagination,
       sorting,
@@ -71,51 +86,30 @@ export function DataTable<D, V>({columns, data}: TableProps<D, V>) {
   return (
     <div className={"w-full flex flex-col gap-y-4"}>
       <div className="flex items-center justify-between">
+        {/*{hasSearchbar && (*/}
+        {/*  <Searchbar<D, V> table={table} />*/}
+        {/*)}*/}
+
+        {/*Mana bu joyda Search componenetini emas Shadcn da yozilgan kodni olib kelib tashladim bari bir ishlamayapti*/}
         <div className={"relative"}>
           <Input
-            placeholder="Search..."
+            placeholder="Filter companies..."
+            value={(table.getColumn("company")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => table.getColumn("company")?.setFilterValue(event.target.value)
+            }
             className="max-w-sm peer block rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
           />
           <LuSearch
-            className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"/>
+            className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
-        <div className="flex gap-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto font-medium rounded-lg py-3 px-4">
-                <LuListFilter className="mr-2 h-4 w-4"/>
-                Filter
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Link href={"/dashboard/companies/create"}>
-            <Button
-              className="py-3 px-4 flex gap-x-2 bg-primary rounded-lg text-white hover:bg-primary/80"
-            >
-              <LuPlus className={"h-6 w-6"}/>
-              Add new
-            </Button>
-          </Link>
-        </div>
+
+
+        {hasFilter && (
+          <Filter table={table} />
+        )}
+        {hasAddButton && (
+          <AddButton link={addButtonLink} />
+        )}
       </div>
       <div className="rounded-md border">
         <Table>
@@ -169,10 +163,12 @@ export function DataTable<D, V>({columns, data}: TableProps<D, V>) {
       </div>
       <div className={"flex justify-between"}>
         <div>
-          <CustomPagination
-            pagination={pagination}
-            setPagination={setPagination}
-            rowCount={data.length}/>
+          {hasPagination && (
+            <CustomPagination
+              pagination={pagination}
+              setPagination={setPagination}
+              rowCount={data.length} />
+          )}
         </div>
       </div>
     </div>
