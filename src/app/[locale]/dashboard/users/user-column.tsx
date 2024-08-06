@@ -5,7 +5,7 @@ import {MdLockOutline} from "react-icons/md";
 
 export const userColumn: ColumnDef<UserType>[] = [
   {
-    accessorKey: "full name",
+    accessorKey: "fullName",
     header: () => <div>Full name</div>,
     cell: ({ row }) => (
         <span className={"text-sm font-medium"}>{row.original.fullName}</span>
@@ -25,7 +25,7 @@ export const userColumn: ColumnDef<UserType>[] = [
     accessorKey: "actions",
     header: () => <div className="text-center">Actions</div>,
     cell: ({ row }) => (
-      <div className={"flex gap-x-3 justify-center"}>
+      <div className={"flex gap-x-2 items-center justify-center"}>
         <MdLockOutline className={"w-5 h-5 cursor-pointer"} />
         <LuTrash2 className={"w-5 h-5 cursor-pointer"} />
       </div>

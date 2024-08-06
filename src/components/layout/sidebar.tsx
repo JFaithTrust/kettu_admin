@@ -149,8 +149,8 @@ const Sidebar = () => {
         <div className={"flex flex-col space-y-1"}>
           {sidebarLinks.map((link) => (
             <Link href={link.href} key={link.label}
-                  className={clsx("flex items-center justify-between py-2 px-3 rounded-md hover:bg-[#F6F8FA] dark:hover:bg-[#292D32] cursor-pointer", {
-                    "bg-[#F6F8FA] border-solid border-r-[6px] border-primary dark:bg-[#292D32]": pathname === link.href,
+                  className={clsx("flex items-center justify-between py-2 px-3 rounded-md hover:bg-[#F6F8FA] dark:hover:bg-[#1F242F] cursor-pointer", {
+                    "bg-[#F6F8FA] border-solid border-r-[6px] border-primary dark:bg-[#1F242F]": pathname === link.href,
                     "mx-3": !open,
                   })}>
               <div className={"flex gap-x-3 items-center"}>
@@ -195,8 +195,8 @@ const Sidebar = () => {
           ))}
           <div
             onClick={() => setDropOpen(!dropOpen)}
-                className={clsx("flex justify-between items-center py-2 px-3 rounded-md hover:bg-[#F6F8FA] dark:hover:bg-[#292D32] cursor-pointer", {
-                  "bg-[#F6F8FA] border-solid border-r-[6px] border-primary dark:bg-[#292D32]": dropOpen,
+                className={clsx("flex justify-between items-center py-2 px-3 rounded-md hover:bg-[#F6F8FA] dark:hover:bg-[#1F242F] cursor-pointer", {
+                  "bg-[#F6F8FA] border-solid border-r-[6px] border-primary dark:bg-[#1F242F]": dropOpen,
                   "mx-3": !open,
                 })}>
             <div className={"flex gap-x-3 items-center"}>

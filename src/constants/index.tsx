@@ -4,7 +4,7 @@ import {
   EmployeeType, HouseType,
   LocationType, PostType,
   ReportType,
-  RequestType,
+  RequestType, RoleType,
   ServiceType,
   TourPackType, UserType
 } from "@/types";
@@ -1003,5 +1003,48 @@ export const postData: PostType[] = [
     title: "Post 10",
     description: "This is post 10",
     views: 1000,
+  }
+]
+
+export const rolesData: RoleType[] = [
+  {
+    id: "m5gr84i9",
+    role: "Admin",
+    activities: [
+      "create",
+      "read",
+      "update",
+      "delete",
+    ],
+    imagesURL: [
+      "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://plus.unsplash.com/premium_photo-1661955588369-b0d28de38b45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://plus.unsplash.com/premium_photo-1661963652315-d5a9d26637dd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dHVya2V5fGVufDB8fDB8fHww",
+    ]
+  },
+  {
+    id: "3u1reuv4",
+    role: "User",
+    activities: [
+      "read",
+    ],
+    imagesURL: [
+      "https://plus.unsplash.com/premium_photo-1661955588369-b0d28de38b45?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://plus.unsplash.com/premium_photo-1661963652315-d5a9d26637dd?w=500&auto=format&fit=crop?q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dHVya2V5fGVufDB8fDB8fHww",
+    ]
+  },
+  {
+    id: "derv1ws0",
+    role: "Moderator",
+    activities: [
+      "create",
+      "read",
+    ],
+    imagesURL: [
+      "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://plus.unsplash.com/premium_photo-1661955588369-b0d28de38b45?w=500&auto=format&fit=crop?q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHVya2V5fGVufDB8fDB8fHww",
+      "https://plus.unsplash.com/premium_photo-1661963652315-d5a9d26637dd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dHVya2V5fGVufDB8fDB8fHww",
+    ]
   }
 ]

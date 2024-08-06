@@ -23,7 +23,7 @@ export default async function RootLayout({
   const messages = await getMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} dark:bg-[#1F242F]`}>
+      <body className={`${inter.className} dark:bg-[#161B26]`}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"

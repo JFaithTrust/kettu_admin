@@ -28,7 +28,7 @@ const CreateRequestModal = () => {
           <p>Payment type</p>
         </div>
         <DialogFooter>
-          <Button className={"py-2 px-3 rounded-lg bg-white hover:bg-white text-black border-[1px] border-solid border-[#AFB8C1]"} onClick={onClose} >
+          <Button className={"py-2 px-3 rounded-lg bg-white hover:bg-white text-black border-[1px] border-solid border-[#AFB8C1] dark:bg-[#161B26] dark:hover:bg-[#161B26] dark:border-dark-secondary dark:text-white"} onClick={onClose} >
             Cancel
           </Button>
           <Button variant={"login"}>
