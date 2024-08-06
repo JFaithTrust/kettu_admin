@@ -3,7 +3,7 @@
 import Image from "next/image";
 import LoginForm from "@/components/forms/login-form";
 import {useState} from "react";
-import {IoIosArrowDown} from "react-icons/io";
+import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import {useLocale} from 'next-intl';
 import {usePathname, useRouter} from "next/navigation";
 
@@ -39,7 +39,7 @@ export default function Home() {
             <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"}>
               <Image src={selectedLang.flag} alt={selectedLang.name} width={20} height={20}/>
               <span className={"font-medium ml-1 mr-1.5"}>{selectedLang.name}</span>
-              <IoIosArrowDown/>
+              {isOpen ? <IoIosArrowUp/> : <IoIosArrowDown/>}
             </div>
             {isOpen && (
               <div className={"absolute bg-white rounded-lg py-2 gap-y-1 w-20"} style={{

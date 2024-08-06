@@ -2,7 +2,7 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import {IoIosArrowDown} from "react-icons/io";
+import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import ForgotPasswordForm from "@/components/forms/forgot-password-form";
 import {useLocale, useTranslations} from "next-intl";
 import {usePathname, useRouter} from "next/navigation";
@@ -38,7 +38,7 @@ const ForgotPasswordPage = () => {
             <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"}>
               <Image src={selectedLang.flag} alt={selectedLang.name} width={20} height={20}/>
               <span className={"font-medium ml-1 mr-1.5"}>{selectedLang.name}</span>
-              <IoIosArrowDown/>
+              {isOpen ? <IoIosArrowUp/> : <IoIosArrowDown/>}
             </div>
             {isOpen && (
               <div className={"absolute bg-white rounded-lg py-2 gap-y-1 w-20"} style={{

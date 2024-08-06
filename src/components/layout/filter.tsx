@@ -19,7 +19,7 @@ export function Filter<D> (props: FilterProps<D>) {
     <div className="flex gap-x-4">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="ml-auto font-medium rounded-lg py-3 px-4">
+          <Button variant="outline" className="ml-auto font-medium rounded-lg py-3 px-4 dark:bg-transparent border-secondary dark:border-dark-secondary">
             <LuListFilter className="mr-2 h-4 w-4" />
             Filter
           </Button>

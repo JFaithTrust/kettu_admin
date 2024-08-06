@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import {IoIosArrowDown} from "react-icons/io";
+import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import {useState} from "react";
 import {RiCopperCoinFill, RiMoonClearLine} from "react-icons/ri";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {LogOut} from "lucide-react";
 import {usePathname, useRouter} from "next/navigation";
+import {useLocale} from "next-intl";
 
 const Navbar = () => {
   const { setTheme, theme } = useTheme();
@@ -26,9 +27,10 @@ const Navbar = () => {
     { code: 'uz', name: 'Uz', flag: '/uz.svg' },
     { code: 'ru', name: 'Ру', flag: '/ru.svg' }
   ];
-  const [selectedLang, setSelectedLang] = useState(languages[0]);
+  const locale = useLocale();
+  const selected = languages.find(lang => lang.code === locale);
+  const [selectedLang, setSelectedLang] = useState(selected || languages[0]);
   const [isOpen, setIsOpen] = useState(false);
-
   const router = useRouter();
   const pathname = usePathname();
 
@@ -45,10 +47,6 @@ const Navbar = () => {
   return (
     <div className={"flex w-full justify-between py-5 px-6 border-b-[1px] border-b-secondary dark:border-dark-secondary"}>
       <h1 className={"text-2xl font-bold capitalize"}>
-        {/*{pathname.slice(11)}*/}
-        {/*input: tour-pack
-        output: Tour Pack
-        */}
         {pathname.slice(14).split("-").map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
       </h1>
       <div className={"flex gap-x-3 items-center"}>
@@ -56,10 +54,10 @@ const Navbar = () => {
           <div onClick={toggleDropdown} className={"cursor-pointer flex items-center"}>
             <Image src={selectedLang.flag} alt={selectedLang.name} width={20} height={20}/>
             <span className={"font-medium ml-1 mr-1.5"}>{selectedLang.name}</span>
-            <IoIosArrowDown/>
+            {isOpen ? <IoIosArrowUp/> : <IoIosArrowDown/>}
           </div>
           {isOpen && (
-            <div className={"absolute bg-white rounded-lg py-2 gap-y-1"} style={{
+            <div className={"absolute bg-white rounded-lg py-2 gap-y-1 w-20 dark:bg-[#1F242F]"} style={{
               top: '100%',
               left: 0,
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',

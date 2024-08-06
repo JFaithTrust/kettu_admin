@@ -6,7 +6,7 @@ import {IoCheckmarkOutline, IoClose} from "react-icons/io5";
 
 export const requestColumn: ColumnDef<RequestType>[] = [
   {
-    accessorKey: "Company",
+    accessorKey: "companyName",
     header: () => <div>Company</div>,
     cell: ({ row }) => (
       <div className={"flex gap-x-2 items-center text-sm font-medium"}>
@@ -42,7 +42,7 @@ export const requestColumn: ColumnDef<RequestType>[] = [
     id: "confirmation",
     header: () => <div className="text-center">Confirmation</div>,
     cell: ({ row }) => (
-      <div className={"flex gap-x-3 justify-center text-sm font-semibold"}>
+      <div className={"flex gap-x-2 justify-center items-center"}>
         <IoCheckmarkOutline className={"w-5 h-5 cursor-pointer text-green-600"} />
         <IoClose className={"w-5 h-5 cursor-pointer text-red-600"} />
       </div>

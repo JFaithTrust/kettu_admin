@@ -5,10 +5,12 @@ import SuccessChart from "@/components/charts/succes-chart";
 import DestructiveChart from "@/components/charts/destructive-chart";
 import {Button} from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import ReportEarningDataTable from "@/app/[locale]/dashboard/report/report-earning-data-table";
-import ReportWithDrawnDataTable from "@/app/[locale]/dashboard/report/report-withdrawn-data-table";
 import CreateRequestModal from "@/components/modals/create-request.modal";
 import {useCreateRequest} from "@/hooks/use-request";
+import {DataTable} from "@/components/layout/data-table";
+import {reportData} from "@/constants";
+import {reportEarningColumn} from "@/app/[locale]/dashboard/report/report-earning-column";
+import {reportWithdrawnColumn} from "@/app/[locale]/dashboard/report/report-withdrawn-column";
 
 const successData = [
   { month: "January", desktop: 18},
@@ -36,7 +38,7 @@ const ReportPage = () => {
     <div className={"flex flex-col"}>
       <CreateRequestModal />
       <div className={"grid grid-cols-3 gap-x-4"}>
-        <div className={"p-6 border-[1px] border-solid rounded-xl flex flex-col gap-y-6"}>
+        <div className={"p-6 border-[1px] border-solid rounded-xl flex flex-col gap-y-6 dark:border-dark-secondary"}>
           <span className={"font-semibold"}>Total earning</span>
           <div className={"grid grid-cols-2"}>
             <div className={"flex flex-col gap-y-4"}>
@@ -53,7 +55,7 @@ const ReportPage = () => {
             </div>
           </div>
         </div>
-        <div className={"p-6 border-[1px] border-solid rounded-xl flex flex-col gap-y-6"}>
+        <div className={"p-6 border-[1px] border-solid rounded-xl flex flex-col gap-y-6 dark:border-dark-secondary"}>
           <span className={"font-semibold"}>Current balance</span>
           <div className={"grid grid-cols-2"}>
             <div className={"flex flex-col gap-y-4"}>
@@ -70,10 +72,10 @@ const ReportPage = () => {
             </div>
           </div>
         </div>
-        <div className={"rounded-xl bg-[#F6F8FA] flex justify-center items-center"}>
+        <div className={"rounded-xl bg-[#F6F8FA] dark:dark:bg-[#1F242F] flex justify-center items-center"}>
           <div className={"flex flex-col gap-y-2 items-center"}>
               <span className={"font-semibold"}>Submit a withdrawal request.</span>
-              <Button onClick={onOpen} className={"bg-primary hover:bg-primary/90 w-fit py-2 px-3 rounded-lg text-sm font-medium"}>
+              <Button onClick={onOpen} className={"bg-primary hover:bg-primary/90 w-fit py-2 px-3 rounded-lg text-sm font-medium dark:bg-primary dark:hover:bg-primary/90 dark:text-white"}>
                 Submit
               </Button>
           </div>
@@ -85,10 +87,12 @@ const ReportPage = () => {
           <TabsTrigger value="widthdrawn">Withdrawn earnings</TabsTrigger>
         </TabsList>
         <TabsContent value="earnings">
-          <ReportEarningDataTable />
+          <DataTable columns={reportEarningColumn} data={reportData} hasFilter={true} hasPagination={true} hasSearchbar={true} isReportPage={true}
+                     searchedBy={"name"} />
         </TabsContent>
         <TabsContent value="widthdrawn">
-          <ReportWithDrawnDataTable />
+          <DataTable columns={reportWithdrawnColumn} data={reportData} hasFilter={true} hasPagination={true} hasSearchbar={true} isReportPage={true}
+                     searchedBy={"name"} />
         </TabsContent>
       </Tabs>
     </div>

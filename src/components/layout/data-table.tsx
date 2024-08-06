@@ -12,16 +12,17 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
-import React, { useEffect, useState } from "react";
-import { PaginationType } from "@/types";
-import { companyColumn } from "@/app/[locale]/dashboard/companies/company-column";
-import { CustomPagination } from "@/components/ui/custom-pagination";
-import { Searchbar } from "@/components/layout/searchbar";
-import { Filter } from "@/components/layout/filter";
-import { AddButton } from "@/components/layout/add-button";
-import { Input } from "@/components/ui/input";
-import { LuSearch } from "react-icons/lu";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
+import React, {useEffect, useState} from "react";
+import {PaginationType} from "@/types";
+import {companyColumn} from "@/app/[locale]/dashboard/companies/company-column";
+import {CustomPagination} from "@/components/ui/custom-pagination";
+import {Searchbar} from "@/components/layout/searchbar";
+import {Filter} from "@/components/layout/filter";
+import {AddButton} from "@/components/layout/add-button";
+import {Input} from "@/components/ui/input";
+import {LuSearch} from "react-icons/lu";
+import {clsx} from "clsx";
 
 
 interface TableProps<D, V> {
@@ -33,6 +34,7 @@ interface TableProps<D, V> {
   hasAddButton?: boolean
   addButtonLink?: string
   searchedBy?: string
+  isReportPage?: boolean
 }
 
 export function DataTable<D, V>({
@@ -44,6 +46,7 @@ export function DataTable<D, V>({
                                   hasAddButton = false,
                                   addButtonLink = "",
                                   searchedBy = "",
+                                  isReportPage = false
                                 }: TableProps<D, V>) {
   const [pagination, setPagination] = useState<PaginationType>({
     pageIndex: 0,
@@ -82,21 +85,24 @@ export function DataTable<D, V>({
 
   return (
     <div className={"w-full flex flex-col gap-y-4"}>
-      <div className="flex items-center justify-between">
+      <div className={clsx("flex items-center", {
+        "justify-between": !isReportPage,
+        "justify-end gap-x-2": isReportPage
+      })}>
         {hasSearchbar && (
-          <Searchbar<D> table={table} searchedBy={searchedBy} />
+          <Searchbar<D> table={table} searchedBy={searchedBy}/>
         )}
 
         <div className={"flex gap-x-2 items-center"}>
           {hasFilter && (
-            <Filter table={table} />
+            <Filter table={table}/>
           )}
           {hasAddButton && (
-            <AddButton link={addButtonLink} />
+            <AddButton link={addButtonLink}/>
           )}
         </div>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border border-secondary dark:border-dark-secondary">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -152,7 +158,7 @@ export function DataTable<D, V>({
             <CustomPagination
               pagination={pagination}
               setPagination={setPagination}
-              rowCount={data.length} />
+              rowCount={data.length}/>
           )}
         </div>
       </div>

@@ -97,3 +97,10 @@ export interface PaginationType {
   pageIndex: number
   pageSize: number
 }
+
+export interface RoleType {
+  id: string
+  role: string
+  activities: string[]
+  imagesURL: string[]
+}

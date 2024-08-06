@@ -60,7 +60,7 @@ const DestructiveChart = ({data}: {data: any}) => {
           dataKey="desktop"
           type="natural"
           fill="url(#fillMobile)"
-          fillOpacity={0.4}
+          fillOpacity={0.2}
           stroke="var(--color-desktop)"
           stackId="a"
         />
