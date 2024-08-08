@@ -13,15 +13,13 @@ import {
   VisibilityState,
 } from "@tanstack/react-table"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {PaginationType} from "@/types";
 import {companyColumn} from "@/app/[locale]/dashboard/companies/company-column";
-import {CustomPagination} from "@/components/ui/custom-pagination";
+import {CustomPagination} from "@/components/custom/custom-pagination";
 import {Searchbar} from "@/components/layout/searchbar";
 import {Filter} from "@/components/layout/filter";
 import {AddButton} from "@/components/layout/add-button";
-import {Input} from "@/components/ui/input";
-import {LuSearch} from "react-icons/lu";
 import {clsx} from "clsx";
 
 

@@ -3,7 +3,7 @@ import {ColumnDef} from "@tanstack/table-core";
 import {FaPencil} from "react-icons/fa6";
 import {LuPencil, LuTrash2} from "react-icons/lu";
 import React from "react";
-import Rating from "@/components/ui/rating";
+import Rating from "@/components/custom/rating";
 
 export const houseColumn: ColumnDef<HouseType>[] = [
   {

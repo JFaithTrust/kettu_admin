@@ -18,6 +18,7 @@ import {
 import {LogOut} from "lucide-react";
 import {usePathname, useRouter} from "next/navigation";
 import {useLocale} from "next-intl";
+import {FaRegEnvelopeOpen} from "react-icons/fa";
 
 const Navbar = () => {
   const { setTheme, theme } = useTheme();
@@ -43,6 +44,39 @@ const Navbar = () => {
     setIsOpen(false);
     router.push('/' + lang.code + pathname.slice(3));
   };
+
+  const notifications = [
+    {
+      id: 1,
+      title: 'New message',
+      description: 'On job / effects proceduralize ask your food paradigm.',
+      time: '2 hours ago',
+    },
+    {
+      id: 2,
+      title: 'New message',
+      description: 'On job / effects proceduralize ask your food paradigm.',
+      time: '3 hours ago',
+    },
+    {
+      id: 3,
+      title: 'New message',
+      description: 'On job / effects proceduralize ask your food paradigm.',
+      time: '4 hours ago',
+    },
+    {
+      id: 4,
+      title: 'New message',
+      description: 'On job / effects proceduralize ask your food paradigm.',
+      time: '5 hours ago',
+    },
+    {
+      id: 5,
+      title: 'New message',
+      description: 'On job / effects proceduralize ask your food paradigm.',
+      time: '6 hours ago',
+    }
+  ]
 
   return (
     <div className={"flex w-full justify-between py-5 px-6 border-b-[1px] border-b-secondary dark:border-dark-secondary"}>
@@ -76,9 +110,35 @@ const Navbar = () => {
         <div className={"p-[10px] cursor-pointer"}>
           {theme === 'dark' ? <RiMoonClearLine onClick={() => setTheme("light")} className={"w-4 h-4"}/> : <PiSun onClick={() => setTheme("dark")} className={"w-4 h-4"}/>}
         </div>
-        <div className={"p-[10px]"}>
-          <LuBellRing className={"w-4 h-4"}/>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className={"cursor-pointer p-[10px]"}>
+              <LuBellRing className={"w-4 h-4"}/>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="max-w-[312px]">
+            <div className={"flex justify-between p-4 items-center"}>
+              <div className={"font-semibold"}>Notifications</div>
+              <div className={"text-sm flex gap-x-1 text-primary items-center hover:underline cursor-pointer"}>
+                <FaRegEnvelopeOpen />
+                <span>Mark all as read</span>
+              </div>
+            </div>
+            {notifications.map((n) => (
+              <div key={n.id}>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className={"flex flex-col gap-y-1 p-4 text-[#6E7781] text-sm items-start"}>
+                  <span className={"font-semibold"}>{n.title}</span>
+                  <span>{n.description}</span>
+                  <span>{n.time}</span>
+                </DropdownMenuItem>
+              </div>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {/*<div className={"p-[10px]"}>*/}
+        {/*  <LuBellRing className={"w-4 h-4"}/>*/}
+        {/*</div>*/}
         <div className={"py-[10px] px-[14px] flex gap-x-1 items-center"}>
           <RiCopperCoinFill className={"w-4 h-4 text-amber-500"} />
           <span className={"text-sm font-medium text-gray-600"}>70,000</span>
