@@ -8,7 +8,7 @@ import {z} from "zod";
 import {toast} from "sonner";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {PhoneInput} from "@/components/ui/phone-input";
+import {PhoneInput} from "@/components/custom/phone-input";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";

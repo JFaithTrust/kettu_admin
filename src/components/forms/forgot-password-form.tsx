@@ -4,7 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {PhoneInput} from "@/components/ui/phone-input";
+import {PhoneInput} from "@/components/custom/phone-input";
 import {Input} from "@/components/ui/input";
 import {FaEye} from "react-icons/fa";
 import {Button} from "@/components/ui/button";
